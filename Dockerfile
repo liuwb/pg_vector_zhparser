@@ -1,4 +1,4 @@
-ARG PG_MAJOR=16
+ARG PG_MAJOR=17
 
 FROM postgres:$PG_MAJOR as builder
 
@@ -18,7 +18,7 @@ RUN set -ex \
   && cd zhparser \
   && make install
 
-FROM pgvector/pgvector:0.7.2-pg16
+FROM pgvector/pgvector:0.7.4-pg17
 
 COPY --from=builder /usr/lib/postgresql/${PG_MAJOR}/lib/zhparser.so /usr/lib/postgresql/${PG_MAJOR}/lib/
 COPY --from=builder /usr/local/lib/libscws.* /usr/local/lib/
